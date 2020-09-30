@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import LandingPage from './pages/LandingPage';
 import OffersPage from './pages/OffersPage';
+import OfferDetails from './components/OfferDetails';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -12,10 +13,11 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Montserrat';
     background-color: #1B1B1E;
     color: #E7E7E7;
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  p {
+    margin: 0;
+    padding: 0;
   }
 `;
 
@@ -29,12 +31,9 @@ const App = () => (
     <GlobalStyles />
     <BrowserRouter>
       <Switch>
-        <Route exact path='/'>
-          <LandingPage />
-        </Route>
-        <Route path='/offers'>
-          <OffersPage />
-        </Route>
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/offers' component={OffersPage} />
+        <Route exact path='/offer-details' component={OfferDetails} />
       </Switch>
     </BrowserRouter>
   </StyledApp>
