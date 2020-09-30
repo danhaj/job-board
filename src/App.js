@@ -3,8 +3,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import LandingPage from './pages/LandingPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import OffersPage from './pages/OffersPage';
-import OfferDetails from './components/OfferDetails';
+import OfferDetails from './pages/OfferDetailsPage';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -36,6 +38,8 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={LandingPage} />
+        <Route exact path='/sign-in' component={SignInPage} />
+        <Route exact path='/sign-up' component={SignUpPage} />
         <Route exact path='/offers' component={OffersPage} />
         <Route exact path='/offer-details' component={OfferDetails} />
       </Switch>

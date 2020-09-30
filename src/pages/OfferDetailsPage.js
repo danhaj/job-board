@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const Details = () => {
+const OfferDetails = () => {
     const offer = useSelector(state => state.currentOffer);
 
     return (
@@ -13,4 +13,4 @@ const Details = () => {
     )
 }
 
-export default Details;
+export default OfferDetails;
