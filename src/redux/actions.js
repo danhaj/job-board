@@ -8,4 +8,9 @@ const setCurrentOffer = offer => ({
     payload: offer
 })
 
-export { setOffers, setCurrentOffer };
+const setFilter = filter => ({
+    type: 'SET_FILTER',
+    payload: filter
+})
+
+export { setOffers, setCurrentOffer, setFilter };

@@ -7,6 +7,10 @@ import OffersPage from './pages/OffersPage';
 import OfferDetails from './components/OfferDetails';
 
 const GlobalStyles = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     padding: 0;

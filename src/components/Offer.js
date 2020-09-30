@@ -50,14 +50,14 @@ const Offer = ({ offer }) => {
         history.push(`/offer-details`);
     }
 
-    const { title, company, address } = offer;
+    const { title, company, city } = offer;
 
     return (
         <StyledOffer onClick={() => handleClick(offer)}>
             <p>{ title }</p>
             <StyledOfferInformations>
                 <p>{ company }</p>
-                <p>{ address }</p>
+                <p>{ city }</p>
             </StyledOfferInformations>
         </StyledOffer>
     )
