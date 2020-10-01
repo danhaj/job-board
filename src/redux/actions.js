@@ -13,4 +13,9 @@ const setFilter = filter => ({
     payload: filter
 })
 
-export { setOffers, setCurrentOffer, setFilter };
+const setCurrentUser = user => ({
+    type: 'SET_CURRENT_USER',
+    payload: user
+})
+
+export { setOffers, setCurrentOffer, setFilter, setCurrentUser };

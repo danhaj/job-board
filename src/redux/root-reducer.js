@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     filter: {
         title: '',
         city: ''
-    }
+    },
+    currentUser: {}
 };
 
 const rootReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,11 @@ const rootReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 filter: action.payload
+            }
+        case 'SET_CURRENT_USER':
+            return {
+                ...state,
+                currentUser: action.payload
             }
         default:
             return state;

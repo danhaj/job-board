@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setOffers } from '../redux/actions';
 import styled from 'styled-components';
@@ -20,14 +21,10 @@ const OffersPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchData = async () => {
-            console.log(url);
-            const res = await fetch(url);
-            const resJson = await res.json();
-            dispatch(setOffers(resJson));
-        }
-
-        fetchData();
+        axios.get(url)
+        .then(res => {
+            dispatch(setOffers(res.data));
+        })
     }, [url, dispatch])
 
     return (

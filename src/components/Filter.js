@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from '../redux/actions';
 import styled from 'styled-components';
 
@@ -32,9 +32,10 @@ const StyledFilter = styled.div`
 `
 
 const Filter = () => {
+    const filter = useSelector(state => state.filter);
+    const dispatch = useDispatch();
     const titleFilter = useRef();
     const cityFilter = useRef();
-    const dispatch = useDispatch();
 
     const handleClick = () => {
         const filter = {
@@ -47,8 +48,8 @@ const Filter = () => {
 
     return (
         <StyledFilter>
-            <input ref={titleFilter} type='text' placeholder='Title' />
-            <input ref={cityFilter} type='text' placeholder='City' />
+            <input ref={titleFilter} type='text' placeholder='Title' defaultValue={filter.title} />
+            <input ref={cityFilter} type='text' placeholder='City' defaultValue={filter.city} />
             <button onClick={() => handleClick()}>Filter</button>
         </StyledFilter>
     )

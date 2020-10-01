@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -30,13 +31,17 @@ const StyledLink = styled(Link)`
 `;
 
 const LandingPage = () => {
+  const user = useSelector(state => state.currentUser);
 
-    return (
-      <StyledLandingPage>
-        <StyledLink to='/sign-in'>Sign In</StyledLink>
-        <StyledLink to='/offers'>Watch job offers</StyledLink>
-      </StyledLandingPage>  
-    )
+  return (
+    <StyledLandingPage>
+      {
+        user.username ? <p>Hello {user.username}</p> : ''
+      }
+      <StyledLink to='/sign-in'>Sign In</StyledLink>
+      <StyledLink to='/offers'>Watch job offers</StyledLink>
+    </StyledLandingPage>  
+  )
 }
 
 export default LandingPage;
