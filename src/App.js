@@ -1,12 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from './redux/actions';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import LandingPage from './pages/LandingPage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import OffersPage from './pages/OffersPage';
-import OfferDetails from './pages/OfferDetailsPage';
+import OfferDetailsPage from './pages/OfferDetailsPage';
+import NewOfferPage from './pages/NewOfferPage';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -32,19 +35,29 @@ const StyledApp = styled.div`
   height: 100vh;
 `;
 
-const App = () => (
-  <StyledApp>
-    <GlobalStyles />
-    <BrowserRouter>
-      <Switch>
-        <Route exact path='/' component={LandingPage} />
-        <Route exact path='/sign-in' component={SignInPage} />
-        <Route exact path='/sign-up' component={SignUpPage} />
-        <Route exact path='/offers' component={OffersPage} />
-        <Route exact path='/offer-details' component={OfferDetails} />
-      </Switch>
-    </BrowserRouter>
-  </StyledApp>
-)
+const App = () => {
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('user'));
+  
+  if(user) {
+    dispatch(setCurrentUser(user));
+  }
+
+  return (
+    <StyledApp>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={LandingPage} />
+          <Route exact path='/sign-in' component={SignInPage} />
+          <Route exact path='/sign-up' component={SignUpPage} />
+          <Route exact path='/offers' component={OffersPage} />
+          <Route exact path='/offer-details' component={OfferDetailsPage} />
+          <Route exact path='/new-offer' component={NewOfferPage} />
+        </Switch>
+      </BrowserRouter>
+    </StyledApp>
+  )
+}
 
 export default App;

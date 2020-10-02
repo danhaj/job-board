@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentUser } from '../redux/actions';
 import styled from 'styled-components';
 
@@ -47,6 +47,7 @@ const StyledSignInPage = styled.form`
 const SignInPage = () => {
     const email = useRef();
     const password = useRef();
+    const user = useSelector(state => state.currentUser);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -60,18 +61,26 @@ const SignInPage = () => {
         .then(res => {
             const { user } = res.data;
             dispatch(setCurrentUser(user));
+            localStorage.setItem('user', JSON.stringify(user));
             history.push('/');
         })
     }
 
     return (
         <StyledSignInPage>
-            <input ref={email} type='text' placeholder='E-mail' />
-            <input ref={password} type='password' placeholder='Password' />
-            <input type='submit' onClick={handleSubmit} value='Sign In' />
-            <span>
-                Register your company <Link to='sign-up'>here</Link>
-            </span>
+            {
+                user.username ?
+                <p>You are already logged!</p>
+                :
+                <>
+                    <input ref={email} type='text' placeholder='E-mail' />
+                    <input ref={password} type='password' placeholder='Password' />
+                    <input type='submit' onClick={handleSubmit} value='Sign In' />
+                    <span>
+                        Register your company <Link to='sign-up'>here</Link>
+                    </span>
+                </>
+            }
         </StyledSignInPage>
     )
 }

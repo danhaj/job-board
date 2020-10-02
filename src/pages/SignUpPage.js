@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentUser } from '../redux/actions';
 import styled from 'styled-components';
 
@@ -39,6 +39,7 @@ const SignUpPage = () => {
     const company = useRef();
     const email = useRef();
     const password = useRef();
+    const user = useSelector(state => state.currentUser);
     const dispatch = useDispatch();
     const history = useHistory();
     
@@ -53,16 +54,24 @@ const SignUpPage = () => {
         .then(res => {
             const { user } = res.data;
             dispatch(setCurrentUser(user));
+            localStorage.setItem('user', JSON.stringify(user));
             history.push('/');
         })
     }
 
     return (
         <StyledSignUpPage>
-            <input ref={company} type='text' placeholder='Company name' />
-            <input ref={email} type='text' placeholder='E-mail' />
-            <input ref={password} type='password' placeholder='Password' />
-            <input type='submit' onClick={handleSubmit} value='Sign Up' />
+            {
+                user.username ?
+                <p>You are already logged!</p>
+                :
+                <>
+                    <input ref={company} type='text' placeholder='Company name' />
+                    <input ref={email} type='text' placeholder='E-mail' />
+                    <input ref={password} type='password' placeholder='Password' />
+                    <input type='submit' onClick={handleSubmit} value='Sign Up' />
+                </>
+            }
         </StyledSignUpPage>
     )
 }
