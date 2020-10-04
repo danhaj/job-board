@@ -10,6 +10,7 @@ import SignUpPage from './pages/SignUpPage';
 import OffersPage from './pages/OffersPage';
 import OfferDetailsPage from './pages/OfferDetailsPage';
 import NewOfferPage from './pages/NewOfferPage';
+import MyOffersPage from './pages/MyOffersPage';
 import Header from './components/Header';
 
 const GlobalStyles = createGlobalStyle`
@@ -34,6 +35,7 @@ const GlobalStyles = createGlobalStyle`
 const StyledApp = styled.div`
   width: 100%;
   height: 100vh;
+  padding-top: 60px;
 `;
 
 const App = () => {
@@ -56,6 +58,7 @@ const App = () => {
           <Route exact path='/offers' component={OffersPage} />
           <Route exact path='/offer-details' component={OfferDetailsPage} />
           <Route exact path='/new-offer' component={NewOfferPage} />
+          <Route exact path='/my-offers' component={MyOffersPage} />
         </Switch>
       </BrowserRouter>
     </StyledApp>
