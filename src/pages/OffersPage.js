@@ -11,7 +11,7 @@ const StyledOffersPage = styled.div`
     display: flex;
     width: 100%;
     flex-direction: column;
-    padding: 30px;
+    padding: 90px 30px 30px 30px;
 `;
 
 const OffersPage = () => {

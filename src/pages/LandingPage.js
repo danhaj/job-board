@@ -38,7 +38,6 @@ const LandingPage = () => {
       {
         user.username ? 
         <>
-          <p>Hello {user.username}</p>
           <StyledLink to='/new-offer'>Post a new offer</StyledLink>
         </>
         :

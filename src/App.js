@@ -10,6 +10,7 @@ import SignUpPage from './pages/SignUpPage';
 import OffersPage from './pages/OffersPage';
 import OfferDetailsPage from './pages/OfferDetailsPage';
 import NewOfferPage from './pages/NewOfferPage';
+import Header from './components/Header';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -47,6 +48,7 @@ const App = () => {
     <StyledApp>
       <GlobalStyles />
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/sign-in' component={SignInPage} />
