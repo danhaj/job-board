@@ -60,16 +60,16 @@ const SignUpPage = () => {
     }
 
     return (
-        <StyledSignUpPage>
+        <StyledSignUpPage onSubmit={handleSubmit}>
             {
                 user.username ?
                 <p>You are already logged!</p>
                 :
                 <>
-                    <input ref={company} type='text' placeholder='Company name' />
-                    <input ref={email} type='text' placeholder='E-mail' />
-                    <input ref={password} type='password' placeholder='Password' />
-                    <input type='submit' onClick={handleSubmit} value='Sign Up' />
+                    <input ref={company} type='text' placeholder='Company name' required />
+                    <input ref={email} type='email' placeholder='E-mail' required />
+                    <input ref={password} type='password' placeholder='Password' required />
+                    <input type='submit' value='Sign Up' />
                 </>
             }
         </StyledSignUpPage>

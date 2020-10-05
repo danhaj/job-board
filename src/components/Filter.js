@@ -14,10 +14,19 @@ const StyledFilter = styled.div`
         background-color: transparent;
         border: 1px solid #96031A;
         padding: 5px;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            margin-bottom: 5px;
+        }
     }
 
     input {
         margin-right: 10px;
+
+        @media (max-width: 768px) {
+            margin-right: 0;
+        }
     }
 
     button {

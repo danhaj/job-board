@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentOffer } from '../redux/actions';
 import styled from 'styled-components';
 
 const StyledMyOffersPage = styled.div`
@@ -17,6 +19,10 @@ const StyledMyOffersPage = styled.div`
         padding: 15px;
         margin: 10px 0;
         border: 1px solid #96031A;
+
+        @media (max-width: 768px) {
+            width: 90%;
+        }
     }
 
     span {
@@ -29,11 +35,20 @@ const StyledMyOffersPage = styled.div`
 const MyOffersPage = () => {
     const [myOffers, setMyOffers] = useState([]);
     const user = useSelector(state => state.currentUser);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
+        if(!user.username) history.push('/sign-in');
+
         axios.get(`http://localhost:1337/offers?company=${user.username}`)
         .then(res => setMyOffers(res.data));
-    }, [user])
+    }, [user, history])
+
+    const handleEdit = offer => {
+        dispatch(setCurrentOffer(offer));
+        history.push('/edit-offer');
+    }
 
     const handleDelete = offer => {
         axios.delete(`http://localhost:1337/offers/${offer.id}`)
@@ -51,13 +66,13 @@ const MyOffersPage = () => {
                     <div key={offer.id}>
                         <p>{ offer.title }</p>
                         <div>
-                            <span>&#9998;</span>
+                            <span onClick={() => handleEdit(offer)}>&#9998;</span>
                             <span onClick={() => handleDelete(offer)}>&#10005;</span>
                         </div>
                     </div>
                 ))
                 :
-                'You have not posted any offers'
+                'You have not posted any offers yet'
             }
         </StyledMyOffersPage>
     )

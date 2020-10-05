@@ -11,6 +11,7 @@ import OffersPage from './pages/OffersPage';
 import OfferDetailsPage from './pages/OfferDetailsPage';
 import NewOfferPage from './pages/NewOfferPage';
 import MyOffersPage from './pages/MyOffersPage';
+import EditOfferPage from './pages/EditOfferPage';
 import Header from './components/Header';
 
 const GlobalStyles = createGlobalStyle`
@@ -59,6 +60,7 @@ const App = () => {
           <Route exact path='/offer-details' component={OfferDetailsPage} />
           <Route exact path='/new-offer' component={NewOfferPage} />
           <Route exact path='/my-offers' component={MyOffersPage} />
+          <Route exact path='/edit-offer' component={EditOfferPage} />
         </Switch>
       </BrowserRouter>
     </StyledApp>

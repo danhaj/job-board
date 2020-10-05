@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentUser } from '../redux/actions';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+import MobileNavigation from './MobileNavigation';
+import LogOut from './LogOut';
 
 const StyledHeader = styled.header`
     position: absolute;
@@ -13,28 +15,32 @@ const StyledHeader = styled.header`
     align-items: center;
     top: 0;
     padding: 15px;
-    border-bottom: 1px solid #96031A;
+    border-bottom: 1px solid #28282b;
 
     div {
         align-items: center;
         display: flex;
         gap: 10px;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 
     button {
-        width: 100px;
+        width: 150px;
         font-family: Montserrat;
         text-align: center;
         color: #E7E7E7;
         background-color: transparent;
-        border: 1px solid #96031A;
+        border: 1px solid #28282b;
         padding: 5px;
         font-size: 13px;
         font-weight: bold;
         cursor: pointer;
 
         &:hover {
-            background-color: #96031A;
+            background-color: #28282b;
             transition-duration: 400ms;
         }
     }
@@ -53,49 +59,47 @@ const StyledLogoLink = styled(Link)`
 `;
 
 const StyledLink = styled(Link)`
-    width: 100px;
+    width: 150px;
     font-family: Montserrat;
     text-align: center;
     text-decoration: none;
     color: #E7E7E7;
     background-color: transparent;
-    border: 1px solid #96031A;
+    border: 1px solid #28282b;
     padding: 5px;
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
 
     &:hover {
-        background-color: #96031A;
+        background-color: #28282b;
         transition-duration: 400ms;
     }
 `;
 
 const Header = () => {
     const user = useSelector(state => state.currentUser);
-    const dispatch = useDispatch();
-
-    const logout = () => {
-        dispatch(setCurrentUser({}));
-        localStorage.removeItem('user');
-    }
 
     return (
-        <StyledHeader>
-            <StyledLogoLink to='/'>job<span>board</span></StyledLogoLink>
-            {
-                user.username ?
-                <div>
-                    <p>Hello <b>{ user.username }</b></p>
-                    <StyledLink to='my-offers'>My offers</StyledLink>
-                    <button onClick={logout}>Log out</button>
-                </div>
-                :
-                <div>
-                    <StyledLink to='sign-in'>Sign in</StyledLink>
-                </div>
-            }
-        </StyledHeader>
+        <>
+            <MobileNavigation />
+            <StyledHeader>
+                <StyledLogoLink to='/'>job<span>board</span></StyledLogoLink>
+                {
+                    user.username ?
+                    <div>
+                        <p>Hello <b>{ user.username }</b></p>
+                        <StyledLink to='/new-offer'>Post a new offer</StyledLink>
+                        <StyledLink to='/my-offers'>My offers</StyledLink>
+                        <LogOut />
+                    </div>
+                    :
+                    <div>
+                        <StyledLink to='sign-in'>Sign in</StyledLink>
+                    </div>
+                }
+            </StyledHeader>
+        </>
     )
 }
 

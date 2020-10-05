@@ -67,15 +67,15 @@ const SignInPage = () => {
     }
 
     return (
-        <StyledSignInPage>
+        <StyledSignInPage onSubmit={handleSubmit}>
             {
                 user.username ?
                 <p>You are already logged!</p>
                 :
                 <>
-                    <input ref={email} type='text' placeholder='E-mail' />
-                    <input ref={password} type='password' placeholder='Password' />
-                    <input type='submit' onClick={handleSubmit} value='Sign In' />
+                    <input ref={email} type='email' placeholder='E-mail' required />
+                    <input ref={password} type='password' placeholder='Password' required />
+                    <input type='submit' value='Sign In' />
                     <span>
                         Register your company <Link to='sign-up'>here</Link>
                     </span>

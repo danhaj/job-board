@@ -25,6 +25,10 @@ const StyledOffer = styled.div`
     & > p {
         font-size: 36px;
         font-weight: bold;
+
+        @media (max-width: 768px) {
+            font-size: 24px;
+        }
     }
 `;
 
