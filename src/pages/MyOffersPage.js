@@ -41,8 +41,9 @@ const MyOffersPage = () => {
     useEffect(() => {
         if(!user.username) history.push('/sign-in');
 
-        axios.get(`http://localhost:1337/offers?company=${user.username}`)
-        .then(res => setMyOffers(res.data));
+        axios.get(`https://strapi-job-board.herokuapp.com/offers?company=${user.username}`)
+        .then(res => setMyOffers(res.data))
+        .catch(() => alert('error'))
     }, [user, history])
 
     const handleEdit = offer => {
@@ -51,11 +52,12 @@ const MyOffersPage = () => {
     }
 
     const handleDelete = offer => {
-        axios.delete(`http://localhost:1337/offers/${offer.id}`)
+        axios.delete(`https://strapi-job-board.herokuapp.com/offers/${offer.id}`)
         .then(() => {
             const updatedMyOffers = myOffers.filter(myOffer => myOffer !== offer);
             setMyOffers(updatedMyOffers);
-        });
+        })
+        .catch(() => alert('error'))
     }
 
     return (

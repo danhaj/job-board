@@ -69,12 +69,13 @@ const EditOfferPage = () => {
     const handleSubmit = ev => {
         ev.preventDefault();
 
-        axios.put(`http://localhost:1337/offers/${offer.id}`, {
+        axios.put(`https://strapi-job-board.herokuapp.com/offers/${offer.id}`, {
             title: title.current.value,
             city: city.current.value,
             description: description.current.value
         })
         .then(() => history.push('/my-offers'))
+        .catch((err) => alert('error'))
         
     }
 

@@ -62,7 +62,7 @@ const NewOfferPage = () => {
     const handleSubmit = ev => {
         ev.preventDefault();
         
-        axios.post('http://localhost:1337/offers', {
+        axios.post('https://strapi-job-board.herokuapp.com/offers', {
             title: title.current.value,
             city: city.current.value,
             description: description.current.value,
@@ -71,6 +71,7 @@ const NewOfferPage = () => {
         .then(() => {
             history.push('/offers');
         })
+        .catch(() => alert('error'))
     }
 
     return (

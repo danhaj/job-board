@@ -54,7 +54,7 @@ const SignInPage = () => {
     const handleSubmit = ev => {
         ev.preventDefault();
         
-        axios.post('http://localhost:1337/auth/local', {
+        axios.post('https://strapi-job-board.herokuapp.com/auth/local', {
             identifier: email.current.value,
             password: password.current.value
         })
@@ -64,6 +64,7 @@ const SignInPage = () => {
             localStorage.setItem('user', JSON.stringify(user));
             history.push('/');
         })
+        .catch(err => alert('error'))
     }
 
     return (

@@ -16,7 +16,7 @@ const StyledOffersPage = styled.div`
 
 const OffersPage = () => {
     const filter = useSelector(state => state.filter);
-    const url = `http://localhost:1337/offers?title_contains=${filter.title}&city_contains=${filter.city}` ;
+    const url = `https://strapi-job-board.herokuapp.com/offers?title_contains=${filter.title}&city_contains=${filter.city}` ;
 
     const dispatch = useDispatch();
 
@@ -25,6 +25,7 @@ const OffersPage = () => {
         .then(res => {
             dispatch(setOffers(res.data));
         })
+        .catch(() => alert('error'))
     }, [url, dispatch])
 
     return (
