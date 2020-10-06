@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -50,6 +50,12 @@ const SignInPage = () => {
     const user = useSelector(state => state.currentUser);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    useEffect(() => {
+        if(!user.username) 
+            alert(`If you just want to watch how application works and don't want to register new account, use: \n\nguest@mail.com \nguest `)
+    })
+
 
     const handleSubmit = ev => {
         ev.preventDefault();
