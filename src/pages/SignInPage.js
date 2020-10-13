@@ -53,7 +53,7 @@ const SignInPage = () => {
 
     useEffect(() => {
         if(!user.username) 
-            alert(`If you just want to watch how application works and don't want to register new account, use: \n\nguest@mail.com \nguest `)
+            alert(`If you don't want to register new account, use: \n\nguest@mail.com \nguestCompany `)
     })
 
 

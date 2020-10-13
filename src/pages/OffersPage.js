@@ -21,6 +21,7 @@ const OffersPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        alert(`Strapi server is deployed on Heroku and connection with database may take a while`);
         axios.get(url)
         .then(res => {
             dispatch(setOffers(res.data));
