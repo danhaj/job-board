@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import Offers from '../components/Offers';
 import Filter from '../components/Filter';
+import Notification from '../components/Notification';
 
 const StyledOffersPage = styled.div`
     display: flex;
@@ -21,7 +22,6 @@ const OffersPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        alert(`Strapi server is deployed on Heroku and connection with database may take a while`);
         axios.get(url)
         .then(res => {
             dispatch(setOffers(res.data));
@@ -31,6 +31,10 @@ const OffersPage = () => {
 
     return (
         <StyledOffersPage>
+            <Notification 
+                text="Strapi server is deployed on Heroku and first connection with database may take a while."
+                width="100%"
+            />
             <Filter />
             <Offers />
         </StyledOffersPage>

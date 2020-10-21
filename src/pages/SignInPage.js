@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentUser } from '../redux/actions';
 import styled from 'styled-components';
+
+import Notification from '../components/Notification';
 
 const StyledSignInPage = styled.form`
     display: flex;
@@ -34,7 +36,7 @@ const StyledSignInPage = styled.form`
         }
     }
 
-    span {
+    & > span {
         padding-top: 15px;
 
         a {
@@ -50,12 +52,6 @@ const SignInPage = () => {
     const user = useSelector(state => state.currentUser);
     const dispatch = useDispatch();
     const history = useHistory();
-
-    useEffect(() => {
-        if(!user.username) 
-            alert(`If you don't want to register new account, use: \n\nguest@mail.com \nguestCompany `)
-    })
-
 
     const handleSubmit = ev => {
         ev.preventDefault();
@@ -80,6 +76,10 @@ const SignInPage = () => {
                 <p>You are already logged!</p>
                 :
                 <>
+                    <Notification 
+                        text={`If you don't want to register new account, use: \n\nguest@mail.com \nguestCompany`}
+                        width='300px'
+                    />
                     <input ref={email} type='email' placeholder='E-mail' required />
                     <input ref={password} type='password' placeholder='Password' required />
                     <input type='submit' value='Sign In' />

@@ -43,14 +43,14 @@ const StyledLink = styled(Link)`
     display: block;
     width: 100%;
     padding: 15px 0;
-    border-top: 1px solid #96031A;
+    border-top: 1px solid #28282b;
     color: #E7E7E7;
     text-decoration: none;
     text-align: center;
     font-weight: bold;
 
     &:last-child {
-        border-bottom: 1px solid #96031A;
+        border-bottom: 1px solid #28282b;
     }
 `;
 
