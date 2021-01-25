@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentOffer } from '../redux/actions';
-import styled from 'styled-components';
+import { firestore } from '../services/firebase';
 
 const StyledMyOffersPage = styled.div`
     display: flex;
@@ -37,14 +37,24 @@ const MyOffersPage = () => {
     const user = useSelector(state => state.currentUser);
     const dispatch = useDispatch();
     const history = useHistory();
+    const offersRef = firestore.collection('offers');
 
     useEffect(() => {
-        if(!user.username) history.push('/sign-in');
+        const unsubscribe = offersRef.where('author', '==', user.uid).onSnapshot(snapshot => {
+            const temp = [];
+            snapshot.forEach(offer => {
+                temp.push({
+                    ...offer.data(),
+                    id: offer.id
+                });
+            });
+            setMyOffers(temp);
+        })
 
-        axios.get(`https://strapi-job-board.herokuapp.com/offers?company=${user.username}`)
-        .then(res => setMyOffers(res.data))
-        .catch(() => alert('error'))
-    }, [user, history])
+        return () => {
+            unsubscribe();
+        }
+    });
 
     const handleEdit = offer => {
         dispatch(setCurrentOffer(offer));
@@ -52,12 +62,7 @@ const MyOffersPage = () => {
     }
 
     const handleDelete = offer => {
-        axios.delete(`https://strapi-job-board.herokuapp.com/offers/${offer.id}`)
-        .then(() => {
-            const updatedMyOffers = myOffers.filter(myOffer => myOffer !== offer);
-            setMyOffers(updatedMyOffers);
-        })
-        .catch(() => alert('error'))
+        offersRef.doc(offer.id).delete();
     }
 
     return (

@@ -1,11 +1,11 @@
 const INITIAL_STATE = {
     offers: [],
-    currentOffer: {},
+    currentOffer: null,
     filter: {
         title: '',
         city: ''
     },
-    currentUser: {}
+    currentUser: null
 };
 
 const rootReducer = (state = INITIAL_STATE, action) => {

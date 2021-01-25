@@ -86,16 +86,17 @@ const Header = () => {
             <StyledHeader>
                 <StyledLogoLink to='/'>job<span>board</span></StyledLogoLink>
                 {
-                    user.username ?
+                    user ?
                     <div>
-                        <p>Hello <b>{ user.username }</b></p>
+                        <p>Hello <b>{ user.email }</b></p>
                         <StyledLink to='/new-offer'>Post a new offer</StyledLink>
                         <StyledLink to='/my-offers'>My offers</StyledLink>
                         <LogOut />
                     </div>
                     :
                     <div>
-                        <StyledLink to='sign-in'>Sign in</StyledLink>
+                        <StyledLink to='/sign-in'>Sign in</StyledLink>
+                        <StyledLink to='/sign-up'>Sign up</StyledLink>
                     </div>
                 }
             </StyledHeader>

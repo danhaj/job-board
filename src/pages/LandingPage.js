@@ -36,10 +36,8 @@ const LandingPage = () => {
   return (
     <StyledLandingPage>
       {
-        user.username ? 
-        <>
-          <StyledLink to='/new-offer'>Post a new offer</StyledLink>
-        </>
+        user ? 
+        <StyledLink to='/new-offer'>Post a new offer</StyledLink>
         :
         <StyledLink to='/sign-in'>Sign In</StyledLink>
       }

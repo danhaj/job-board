@@ -1,16 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setCurrentUser } from '../redux/actions';
+import { auth } from '../services/firebase';
 
-const LogOut = () => {
-    const dispatch = useDispatch();
-
-    const logout = () => {
-        dispatch(setCurrentUser({}));
-        localStorage.removeItem('user');
-    }
-
-    return <button onClick={logout}>Log out</button>
-}
+const LogOut = () => (
+    <button onClick={() => auth().signOut()}>Log out</button>
+)
 
 export default LogOut;

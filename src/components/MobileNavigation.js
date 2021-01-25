@@ -28,8 +28,8 @@ const StyledMobileNavigation = styled.nav`
             width: 100%;
             padding: 15px 0;
             border: none;
-            border-top: 1px solid #96031A;
-            border-bottom: 1px solid #96031A;
+            border-top: 1px solid #28282b;
+            border-bottom: 1px solid #28282b;
             font-family: 'Montserrat';
             font-weight: bold;
             font-size: 16px;
@@ -63,7 +63,7 @@ const MobileNavigation = () => {
             <ToggleNav nav={nav} />
             <StyledMobileNavigation ref={nav}>
                 {
-                    user.username ?
+                    user ?
                     <>
                         <StyledLink to='/'>Home</StyledLink>
                         <StyledLink to='/offers'>Watch offers</StyledLink>
@@ -76,6 +76,7 @@ const MobileNavigation = () => {
                         <StyledLink to='/'>Home</StyledLink>
                         <StyledLink to='/offers'>Watch offers</StyledLink>
                         <StyledLink to='/sign-in'>Sign in</StyledLink>
+                        <StyledLink to='/sign-up'>Sign up</StyledLink>
                     </>
                 }
             </StyledMobileNavigation>

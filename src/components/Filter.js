@@ -47,12 +47,12 @@ const Filter = () => {
     const cityFilter = useRef();
 
     const handleClick = () => {
-        const filter = {
+        const newFilter = {
             title: titleFilter.current.value,
             city: cityFilter.current.value
         }
 
-        dispatch(setFilter(filter));
+        dispatch(setFilter(newFilter));
     }
 
     return (

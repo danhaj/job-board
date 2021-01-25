@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setOffers } from '../redux/actions';
+import { firestore } from '../services/firebase';
 import styled from 'styled-components';
 
-import Offers from '../components/Offers';
+import Offer from '../components/Offer';
 import Filter from '../components/Filter';
-import Notification from '../components/Notification';
 
 const StyledOffersPage = styled.div`
     display: flex;
@@ -16,27 +15,38 @@ const StyledOffersPage = styled.div`
 `;
 
 const OffersPage = () => {
+    const offers = useSelector(state => state.offers);
     const filter = useSelector(state => state.filter);
-    const url = `https://strapi-job-board.herokuapp.com/offers?title_contains=${filter.title}&city_contains=${filter.city}` ;
-
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(url)
-        .then(res => {
-            dispatch(setOffers(res.data));
-        })
-        .catch(() => alert('error'))
-    }, [url, dispatch])
+        const fetchOffers = async () => {
+            const temp = [];
+            const res = await firestore.collection('offers').get();
+            
+            res.forEach(offer => temp.push({
+                ...offer.data(),
+                id: offer.id
+            }));
+
+            dispatch(setOffers(temp));
+        }
+
+        fetchOffers();
+    }, [dispatch])
 
     return (
         <StyledOffersPage>
-            <Notification 
-                text="Strapi server is deployed on Heroku and first connection with database may take a while."
-                width="100%"
-            />
             <Filter />
-            <Offers />
+            {
+                offers.map(offer => (
+                    offer.title.toLowerCase().includes(filter.title.toLowerCase()) 
+                    && 
+                    offer.city.toLowerCase().includes(filter.city.toLowerCase()) 
+                    ? <Offer key={offer.id} offer={offer} />
+                    : null
+                ))
+            }
         </StyledOffersPage>
     )
 }

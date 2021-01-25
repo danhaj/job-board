@@ -1,40 +1,17 @@
 import React, { useRef } from 'react';
-import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentUser } from '../redux/actions';
+import { Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { auth } from '../services/firebase';
 
-import Notification from '../components/Notification';
+import Form from '../components/Form';
 
-const StyledSignInPage = styled.form`
+const StyledSignInPage = styled.div`
     display: flex;
     height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    input {
-        width: 300px;
-        padding: 15px 0;
-        margin: 5px 0;
-        font-family: 'Montserrat';
-        font-size: 16px;
-        text-align: center;
-        color: #E7E7E7;
-        background-color: transparent;
-        border: 1px solid #96031A;
-
-        &[type='submit'] {
-            font-weight: bold;
-            cursor: pointer;
-
-            &:hover {
-                background-color: #96031A;
-                transition-duration: 400ms;
-            }
-        }
-    }
 
     & > span {
         padding-top: 15px;
@@ -50,39 +27,25 @@ const SignInPage = () => {
     const email = useRef();
     const password = useRef();
     const user = useSelector(state => state.currentUser);
-    const dispatch = useDispatch();
-    const history = useHistory();
 
     const handleSubmit = ev => {
         ev.preventDefault();
-        
-        axios.post('https://strapi-job-board.herokuapp.com/auth/local', {
-            identifier: email.current.value,
-            password: password.current.value
-        })
-        .then(res => {
-            const { user } = res.data;
-            dispatch(setCurrentUser(user));
-            localStorage.setItem('user', JSON.stringify(user));
-            history.push('/');
-        })
-        .catch(err => alert('error'))
+
+        auth().signInWithEmailAndPassword(email.current.value, password.current.value);
     }
 
     return (
-        <StyledSignInPage onSubmit={handleSubmit}>
+        <StyledSignInPage>
             {
-                user.username ?
-                <p>You are already logged!</p>
+                user ?
+                <Redirect to="/" />
                 :
                 <>
-                    <Notification 
-                        text={`If you don't want to register new account, use: \n\nguest@mail.com \nguestCompany`}
-                        width='300px'
-                    />
-                    <input ref={email} type='email' placeholder='E-mail' required />
-                    <input ref={password} type='password' placeholder='Password' required />
-                    <input type='submit' value='Sign In' />
+                    <Form onSubmit={handleSubmit}>
+                        <input ref={email} type='email' placeholder='E-mail' required />
+                        <input ref={password} type='password' placeholder='Password' required />
+                        <input type='submit' value='Sign In' />
+                    </Form>
                     <span>
                         Register your company <Link to='sign-up'>here</Link>
                     </span>
