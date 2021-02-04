@@ -1,53 +1,55 @@
 import React, { useRef } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { auth, firestore } from '../services/firebase';
 
 import Form from '../components/Form';
-import { useSelector } from 'react-redux';
 
 const StyledNewOfferPage = styled.div`
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const NewOfferPage = () => {
-    const title = useRef();
-    const city = useRef();
-    const description = useRef();
-    const history = useHistory();
-    const user = useSelector(state => state.currentUser);
+  const title = useRef();
+  const city = useRef();
+  const description = useRef();
+  const history = useHistory();
+  const user = useSelector(state => state.currentUser);
 
-    const handleSubmit = ev => {
-        ev.preventDefault();
+  const handleSubmit = ev => {
+    ev.preventDefault();
 
-        const newOffer = {
-            title: title.current.value,
-            city: city.current.value,
-            description: description.current.value,
-            author: user.uid,
-            company: user.displayName || auth().currentUser.displayName,
-        }
+    const newOffer = {
+      title: title.current.value,
+      city: city.current.value,
+      description: description.current.value,
+      author: user.uid,
+      company: user.displayName || auth.currentUser.displayName,
+    };
 
-        firestore.collection('offers').add(newOffer)
-        .then(() => {
-            history.push('/offers');
-        })
-    }
+    firestore
+      .collection('offers')
+      .add(newOffer)
+      .then(() => {
+        history.push('/offers');
+      });
+  };
 
-    return (
-        <StyledNewOfferPage>
-            <Form onSubmit={handleSubmit}>
-                <input ref={title} type='text' placeholder='Title' required />
-                <input ref={city} type='text' placeholder='City' required />
-                <textarea ref={description} placeholder='Description' required />
-                <input type='submit' value='Post offer' />
-            </Form>
-        </StyledNewOfferPage>
-    )
-}
+  return (
+    <StyledNewOfferPage>
+      <Form onSubmit={handleSubmit}>
+        <input ref={title} type='text' placeholder='Title' required />
+        <input ref={city} type='text' placeholder='City' required />
+        <textarea ref={description} placeholder='Description' required />
+        <input type='submit' value='Post offer' />
+      </Form>
+    </StyledNewOfferPage>
+  );
+};
 
 export default NewOfferPage;
