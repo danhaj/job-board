@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
@@ -71,23 +71,27 @@ const StyledToggleNavDiv = styled.div`
 const ToggleNav = ({ navRef }) => {
   const location = useLocation();
   const toggleInput = useRef(null);
-  const nav = navRef.current;
+  const [navStyle, setNavStyle] = useState({});
 
   useEffect(() => {
-    if (toggleInput.current.checked) {
-      toggleInput.current.checked = false;
-      nav.style.opacity = '0';
-      nav.style.zIndex = '-1';
-    }
-  }, [nav, location]);
+    setNavStyle(navRef.current.style);
 
-  const toggleNav = ({ checked }) => {
+    const setInitialNavStyle = () => {
+      toggleInput.current.checked = false;
+      navStyle.opacity = '0';
+      navStyle.zIndex = '-1';
+    };
+
+    setInitialNavStyle();
+  }, [navRef, navStyle, location]);
+
+  const handleClick = ({ checked }) => {
     if (checked) {
-      nav.style.opacity = '1';
-      nav.style.zIndex = '2';
+      navStyle.opacity = '1';
+      navStyle.zIndex = '2';
     } else {
-      nav.style.opacity = '0';
-      nav.style.zIndex = '-1';
+      navStyle.opacity = '0';
+      navStyle.zIndex = '-1';
     }
   };
 
@@ -96,7 +100,7 @@ const ToggleNav = ({ navRef }) => {
       <input
         ref={toggleInput}
         type='checkbox'
-        onClick={ev => toggleNav(ev.target)}
+        onClick={ev => handleClick(ev.target)}
       />
       <span />
       <span />
