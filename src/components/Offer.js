@@ -46,6 +46,11 @@ const StyledOfferInformations = styled.div`
   }
 `;
 
+const StyledDateText = styled.p`
+  position: absolute;
+  right: 50px;
+`;
+
 const Offer = ({ offer }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -55,7 +60,7 @@ const Offer = ({ offer }) => {
     history.push(`/offer-details`);
   };
 
-  const { title, company, city } = offer;
+  const { title, company, city, dateString } = offer;
 
   return (
     <StyledOffer onClick={() => handleClick(offer)}>
@@ -64,12 +69,18 @@ const Offer = ({ offer }) => {
         <p>{company}</p>
         <p>{city}</p>
       </StyledOfferInformations>
+      <StyledDateText>{dateString}</StyledDateText>
     </StyledOffer>
   );
 };
 
 Offer.propTypes = {
-  offer: PropTypes.objectOf(PropTypes.string).isRequired,
+  offer: PropTypes.shape({
+    title: PropTypes.string,
+    company: PropTypes.string,
+    city: PropTypes.string,
+    dateString: PropTypes.string,
+  }).isRequired,
 };
 
 export default Offer;

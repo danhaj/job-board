@@ -22,11 +22,15 @@ const OffersPage = () => {
   useEffect(() => {
     const fetchOffers = async () => {
       const temp = [];
-      const res = await firestore.collection('offers').get();
+      const res = await firestore
+        .collection('offers')
+        .orderBy('creationDate')
+        .get();
 
       res.forEach(offer =>
         temp.push({
           ...offer.data(),
+          dateString: offer.data().creationDate.toDate().toLocaleDateString(),
           id: offer.id,
         }),
       );

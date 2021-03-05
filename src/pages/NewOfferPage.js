@@ -21,7 +21,7 @@ const NewOfferPage = () => {
   const history = useHistory();
   const user = useSelector(state => state.currentUser);
 
-  const handleSubmit = ev => {
+  const handleSubmit = async ev => {
     ev.preventDefault();
 
     const newOffer = {
@@ -30,14 +30,12 @@ const NewOfferPage = () => {
       description: description.current.value,
       author: user.uid,
       company: user.displayName || auth.currentUser.displayName,
+      creationDate: new Date(),
     };
 
-    firestore
-      .collection('offers')
-      .add(newOffer)
-      .then(() => {
-        history.push('/offers');
-      });
+    await firestore.collection('offers').add(newOffer);
+
+    history.push('/offers');
   };
 
   return (

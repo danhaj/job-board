@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const StyledOfferDetailsPage = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const StyledOfferDetailsPage = styled.div`
 
   hr {
     width: 200px;
-    margin: 20px 0;
+    margin: 15px 0;
   }
 
   & > div {
@@ -26,17 +27,26 @@ const StyledTitle = styled.p`
   font-size: 36px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 10px;
+`;
+
+const StyledCity = styled.p`
+  font-weight: bold;
+  font-size: 20px;
 `;
 
 const OfferDetailsPage = () => {
   const offer = useSelector(state => state.currentOffer);
-  const { title, city, description } = offer;
+  if (!offer) return <Redirect to='/offers' />;
+
+  const { title, city, description, dateString } = offer;
 
   return (
     <StyledOfferDetailsPage>
       <div>
         <StyledTitle>{title}</StyledTitle>
-        <p>{city}</p>
+        <p>{dateString}</p>
+        <StyledCity>{city}</StyledCity>
         <hr color='#96031A' />
         <p>{description}</p>
       </div>
