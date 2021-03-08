@@ -47,8 +47,7 @@ const StyledOfferInformations = styled.div`
 `;
 
 const StyledDateText = styled.p`
-  position: absolute;
-  right: 50px;
+  margin-left: 15px;
 `;
 
 const Offer = ({ offer }) => {
@@ -68,8 +67,8 @@ const Offer = ({ offer }) => {
       <StyledOfferInformations>
         <p>{company}</p>
         <p>{city}</p>
+        <StyledDateText>{dateString}</StyledDateText>
       </StyledOfferInformations>
-      <StyledDateText>{dateString}</StyledDateText>
     </StyledOffer>
   );
 };
